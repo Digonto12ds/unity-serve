@@ -14,6 +14,8 @@ import {
   Check,
   X,
 } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,10 +25,21 @@ export default function SignupPage() {
   const hasLowercase = /[a-z]/.test(password);
   const hasMinLength = password.length >= 6;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Connect your Better Auth signup function here.
+    const formData = new FormData(e.target)
+    const user = Object.fromEntries(formData.entries()) as {name: string, email: string, image?: string, password: string};
+
+    const {data, error} = await authClient.signUp.email({
+      ...user
+    })
+    if(data){
+      redirect('/');
+    }
+    if(error){
+      console.error("Error signing up user:", error);
+    }
   };
 
   return (
@@ -35,7 +48,7 @@ export default function SignupPage() {
 
         {/* Header */}
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-lg shadow-emerald-600/20">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-500 to-emerald-700 text-white shadow-lg shadow-emerald-600/20">
             <HeartHandshake size={29} strokeWidth={2.2} />
           </div>
 

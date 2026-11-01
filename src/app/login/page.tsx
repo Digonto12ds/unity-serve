@@ -11,18 +11,35 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Connect your Better Auth login function here.
+    const formData = new FormData(e.target)
+    const user = Object.fromEntries(formData.entries()) as {email: string, password: string};
+
+    const {data, error} = await authClient.signIn.email({
+      ...user
+    })
+    if(data){
+          redirect('/');
+        }
+        if(error){
+          console.error("Error signing up user:", error);
+        }
+
   };
 
-  const handleGoogleLogin = () => {
-    // Connect your Google sign-in function here.
+  const handleGoogleLogin = async() => {
+    const data = await authClient.signIn.social({
+    provider: "google",
+  });
+  console.log("Google login data:", data);
   };
 
   return (
@@ -31,7 +48,7 @@ export default function LoginPage() {
 
         {/* Header */}
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-lg shadow-emerald-600/20">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-500 to-emerald-700 text-white shadow-lg shadow-emerald-600/20">
             <HeartHandshake size={29} strokeWidth={2.2} />
           </div>
 
