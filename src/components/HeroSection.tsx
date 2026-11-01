@@ -13,52 +13,53 @@ const stats = [
   {
     value: "1,450+",
     label: "Active Volunteers",
-    color: "text-teal-600",
+    color: "text-emerald-600 dark:text-emerald-400",
     icon: Users,
   },
   {
     value: "180+",
     label: "Events Completed",
-    color: "text-emerald-500",
+    color: "text-emerald-600 dark:text-emerald-400",
     icon: CalendarCheck,
   },
   {
     value: "24,000+",
     label: "Lives Impacted",
-    color: "text-indigo-500",
+    color: "text-emerald-600 dark:text-emerald-400",
     icon: Heart,
   },
   {
     value: "100%",
     label: "Community Driven",
-    color: "text-orange-500",
+    color: "text-emerald-600 dark:text-emerald-400",
     icon: HandHeart,
   },
 ];
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-teal-100 via-teal-50 to-slate-50">
+    <section className="relative overflow-hidden bg-gradient-to-b from-emerald-100 via-emerald-50 to-slate-50 transition-colors duration-300 dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
+
       {/* Main Container */}
       <div className="container mx-auto px-4">
         <div className="flex min-h-[650px] flex-col items-center justify-center py-20 text-center sm:py-24 lg:min-h-[745px]">
 
           {/* Badge */}
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white/50 px-4 py-2 text-sm font-semibold text-teal-700 shadow-sm">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/70 px-4 py-2 text-sm font-semibold text-emerald-700 shadow-sm transition-colors duration-300 dark:border-emerald-800 dark:bg-slate-900/70 dark:text-emerald-400">
             <Sparkles size={16} />
             Community-Driven Social Development Platform
           </div>
 
           {/* Heading */}
-          <h1 className="max-w-4xl text-4xl leading-tight font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-4xl text-4xl leading-tight font-extrabold tracking-tight text-slate-900 transition-colors duration-300 sm:text-5xl lg:text-6xl dark:text-white">
             Together We Can Make
-            <span className="block bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
               A Difference.
             </span>
           </h1>
 
           {/* Description */}
-          <p className="mt-7 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+          <p className="mt-7 max-w-2xl text-base leading-7 text-slate-600 transition-colors duration-300 sm:text-lg sm:leading-8 dark:text-slate-400">
             Join hands with your community to create meaningful change.
             Discover local initiatives, organize social events, and
             make a positive impact on the lives around you.
@@ -68,7 +69,7 @@ const HeroSection = () => {
           <div className="mt-9 flex flex-col items-center gap-4 sm:flex-row">
             <Link
               href="/events"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-teal-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-teal-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-teal-700"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-emerald-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-700"
             >
               Explore Events
               <ArrowRight size={18} />
@@ -76,7 +77,7 @@ const HeroSection = () => {
 
             <Link
               href="/create-event"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 py-3.5 font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-300 hover:text-teal-700"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 py-3.5 font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:text-emerald-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-emerald-600 dark:hover:text-emerald-400"
             >
               <Heart size={17} />
               Create an Event
@@ -91,7 +92,7 @@ const HeroSection = () => {
               return (
                 <div
                   key={stat.label}
-                  className="rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-5 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  className="rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-5 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/80"
                 >
                   <Icon
                     size={21}
@@ -104,7 +105,7 @@ const HeroSection = () => {
                     {stat.value}
                   </h3>
 
-                  <p className="mt-1 text-xs font-medium text-slate-500 sm:text-sm">
+                  <p className="mt-1 text-xs font-medium text-slate-500 sm:text-sm dark:text-slate-400">
                     {stat.label}
                   </p>
                 </div>
