@@ -2,12 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   CalendarDays,
-  HeartHandshake,
   MapPin,
   Sparkles,
   Globe,
-  Heart,
 } from "lucide-react";
+import { TbHeartHandshake } from "react-icons/tb";
 
 const platformLinks = [
   {
@@ -160,7 +159,7 @@ export default function Footer() {
           </p>
 
           <p className="inline-flex items-center gap-2">
-            <HeartHandshake size={15} className="text-emerald-600" />
+            <TbHeartHandshake size={15} className="text-emerald-600" />
             Together, We Make a Difference
           </p>
         </div>
