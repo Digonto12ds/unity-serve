@@ -19,6 +19,7 @@ import {
   Card,
   CardContent,
 } from "@/components/ui/card";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 type JoinedEvent = {
   _id: string;
@@ -46,9 +47,15 @@ const JoinedEventsPage = () => {
     let isActive = true;
 
     const fetchJoinedEvents = async () => {
+        const token = await getTokenFromClient();
       try {
         const res = await fetch(
-          `http://localhost:8000/joined-events/${encodeURIComponent(userEmail)}`
+          `http://localhost:8000/joined-events/${encodeURIComponent(userEmail)}`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            }
+          }
         );
 
         const responseText = await res.text();

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 interface JoinEventButtonProps {
   eventId: string;
@@ -35,6 +36,7 @@ const JoinEventButton = ({
     }
 
     setIsLoading(true);
+    const token = await getTokenFromClient();
 
     try {
       const res = await fetch(
@@ -43,6 +45,7 @@ const JoinEventButton = ({
           method: isJoined ? "DELETE" : "POST",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ email }),
         },

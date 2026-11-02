@@ -26,6 +26,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 type Event = {
   _id: string;
@@ -75,9 +76,16 @@ const ManageEventPage = () => {
     let isActive = true;
 
     const fetchMyEvents = async () => {
+
+      const token = await getTokenFromClient();
+
       try {
         const res = await fetch(
-          `http://localhost:8000/my-events/${encodeURIComponent(userEmail)}`
+          `http://localhost:8000/my-events/${encodeURIComponent(userEmail)}`,{
+            headers: {
+              authorization: `Bearer ${token}`,
+            }
+          }
         );
 
         if (!res.ok) {
@@ -130,6 +138,8 @@ const ManageEventPage = () => {
 
     setIsUpdating(true);
 
+    const token = await getTokenFromClient();
+
     try {
       const res = await fetch(
         `http://localhost:8000/my-events/${editingEvent._id}`,
@@ -137,6 +147,7 @@ const ManageEventPage = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             ...editForm,
@@ -181,12 +192,16 @@ const ManageEventPage = () => {
   }
 
   setDeletingId(id);
+  const token = await getTokenFromClient();
 
   try {
     const res = await fetch(
       `http://localhost:8000/my-events/${id}?email=${encodeURIComponent(userEmail)}`,
       {
         method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
       }
     );
 

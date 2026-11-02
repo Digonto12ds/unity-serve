@@ -27,6 +27,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import toast from "react-hot-toast";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
+
+
 
 const imagePresets = [
   {
@@ -90,10 +93,13 @@ export default function CreateEventPage() {
 
     setIsSubmitting(true);
 
+    const token = await getTokenFromClient();
+
     const res = await fetch("http://localhost:8000/add-event", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(form),
     });
