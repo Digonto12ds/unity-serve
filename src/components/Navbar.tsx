@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ProfileAvatar from "./shared/ProfileAvatar";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -118,9 +119,7 @@ export default function Navbar() {
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-2 rounded-full border border-slate-200 bg-white p-1.5 pr-3 transition hover:border-emerald-500 dark:border-slate-700 dark:bg-slate-900">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
-                  <RiUserLine size={21} />
-                </div>
+                <ProfileAvatar name={user.name} image={user.image} size="sm" />
 
                 <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                   My Account
@@ -145,6 +144,13 @@ export default function Navbar() {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    onClick={() => router.push("/profile")}
+                    className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
+                  >
+                    <RiUserLine size={19} />
+                    My Profile
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => router.push("/create-event")}
                     className="flex cursor-pointer items-center gap-3 px-3 py-2.5"

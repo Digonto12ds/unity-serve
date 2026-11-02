@@ -5,6 +5,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-hot-toast";
 import { HeartHandshake, LogOut } from "lucide-react";
+import { redirect } from "next/navigation";
 
 interface JoinEventButtonProps {
   eventId: string;
@@ -27,6 +28,7 @@ const JoinEventButton = ({
   const handleJoinEvent = async () => {
     if (!email) {
       toast.error("Please login to join this event.");
+      redirect("/login");
       return;
     }
 
