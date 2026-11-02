@@ -13,6 +13,7 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,9 +32,11 @@ export default function LoginPage() {
     });
     if (data?.user?.email) {
       localStorage.setItem("userEmail", data.user.email);
+      toast.success("Login successful!");
       redirect("/");
     }
     if (error) {
+      toast.error("Login failed. Please check your credentials.");
       console.error("Error signing up user:", error);
     }
   };
@@ -42,6 +45,7 @@ export default function LoginPage() {
     const data = await authClient.signIn.social({
       provider: "google",
     });
+    toast.success("Google login successful!");
     console.log("Google login data:", data);
   };
 

@@ -68,7 +68,7 @@ const RecentEvents = async () => {
           <div>
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-400">
               <span className="size-2 animate-pulse rounded-full bg-emerald-500" />
-              Make an Impact
+              Do something meaningful
             </div>
 
             <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">

@@ -26,7 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { toast } from "react-toastify/unstyled";
+import toast from "react-hot-toast";
 
 const imagePresets = [
   {
@@ -52,7 +52,7 @@ export default function CreateEventPage() {
   const [imageUrl, setImageUrl] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventType, setEventType] = useState("");
-  const [message, setMessage] = useState("");
+  const [message] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [userEmail] = useState(() => {
@@ -70,9 +70,13 @@ export default function CreateEventPage() {
     const creatorEmail = localStorage.getItem("userEmail");
 
     if (!creatorEmail) {
-      setMessage("Please log in to create an event.");
+      toast.error("Please log in to create an event.");
       return;
     }
+    if (!eventType) {
+    toast.error("Please select an event type.");
+    return;
+  }
 
     const form = {
       title: formData.get("title"),
@@ -96,19 +100,16 @@ export default function CreateEventPage() {
 
     const data = await res.json();
 
-    console.log(data);
-
     setIsSubmitting(false);
 
     if (res.ok) {
-      setMessage("Event created successfully!");
       toast.success("Event created successfully!");
 
       setTimeout(() => {
         router.push("/events");
       }, 1500);
     } else {
-      setMessage(data.message || "Failed to create event.");
+      toast.error(data.message || "Failed to create event.");
     }
   };
 

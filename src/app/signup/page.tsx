@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -41,9 +42,11 @@ export default function SignupPage() {
     });
     if (data?.user?.email) {
       localStorage.setItem("userEmail", data.user.email);
+      toast.success("Signup successful!");
       redirect("/");
     }
     if (error) {
+      toast.error("Signup failed. Please check your credentials.");
       console.error("Error signing up user:", error);
     }
   };
