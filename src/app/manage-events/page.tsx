@@ -310,7 +310,7 @@ const ManageEventPage = () => {
             {[1, 2, 3].map((item) => (
               <div
                 key={item}
-                className="h-[390px] animate-pulse rounded-2xl bg-slate-200 dark:bg-slate-800"
+                className="h-97.5 animate-pulse rounded-2xl bg-slate-200 dark:bg-slate-800"
               />
             ))}
           </div>
