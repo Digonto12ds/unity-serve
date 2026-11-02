@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import JoinEventButton from "@/components/JoinEventButton";
 
 type EventData = {
   _id: string;
@@ -22,6 +23,7 @@ type EventData = {
   image: string;
   description: string;
   creatorEmail: string;
+  joinedBy?: string[];
 };
 
 const DetailPage = async ({
@@ -98,7 +100,7 @@ const DetailPage = async ({
             />
 
             {/* Dark Image Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
 
             {/* Event Category */}
             <div className="absolute left-5 top-5">
@@ -160,13 +162,7 @@ const DetailPage = async ({
 
               </div>
 
-              <Link
-                href="/login"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 text-sm font-bold text-white shadow-md shadow-emerald-600/15 transition hover:bg-emerald-700"
-              >
-                <HeartHandshake size={17} />
-                Join Event
-              </Link>
+              <JoinEventButton eventId={event._id} joinedBy={event.joinedBy || []} />
 
             </div>
 
