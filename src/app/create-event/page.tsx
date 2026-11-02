@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "react-toastify/unstyled";
 
 const imagePresets = [
   {
@@ -48,17 +49,30 @@ const imagePresets = [
 
 export default function CreateEventPage() {
   const router = useRouter();
-
   const [imageUrl, setImageUrl] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventType, setEventType] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [userEmail] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("userEmail") || "";
+    }
+
+    return "";
+  });
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
+    const creatorEmail = localStorage.getItem("userEmail");
+
+    if (!creatorEmail) {
+      setMessage("Please log in to create an event.");
+      return;
+    }
 
     const form = {
       title: formData.get("title"),
@@ -67,6 +81,7 @@ export default function CreateEventPage() {
       location: formData.get("location"),
       image: imageUrl,
       description: formData.get("description"),
+      creatorEmail: creatorEmail,
     };
 
     setIsSubmitting(true);
@@ -87,6 +102,7 @@ export default function CreateEventPage() {
 
     if (res.ok) {
       setMessage("Event created successfully!");
+      toast.success("Event created successfully!");
 
       setTimeout(() => {
         router.push("/events");
@@ -336,7 +352,7 @@ export default function CreateEventPage() {
               </span>
 
               <span className="font-semibold text-slate-800 dark:text-slate-200">
-                Login to attach your email
+                {userEmail || "Login to attach your email"}
               </span>
             </div>
 

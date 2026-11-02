@@ -20,32 +20,34 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target)
-    const user = Object.fromEntries(formData.entries()) as {email: string, password: string};
+    const formData = new FormData(e.target);
+    const user = Object.fromEntries(formData.entries()) as {
+      email: string;
+      password: string;
+    };
 
-    const {data, error} = await authClient.signIn.email({
-      ...user
-    })
-    if(data){
-          redirect('/');
-        }
-        if(error){
-          console.error("Error signing up user:", error);
-        }
-
+    const { data, error } = await authClient.signIn.email({
+      ...user,
+    });
+    if (data?.user?.email) {
+      localStorage.setItem("userEmail", data.user.email);
+      redirect("/");
+    }
+    if (error) {
+      console.error("Error signing up user:", error);
+    }
   };
 
-  const handleGoogleLogin = async() => {
+  const handleGoogleLogin = async () => {
     const data = await authClient.signIn.social({
-    provider: "google",
-  });
-  console.log("Google login data:", data);
+      provider: "google",
+    });
+    console.log("Google login data:", data);
   };
 
   return (
     <main className="flex min-h-screen w-full items-center justify-center bg-slate-50 px-4 py-10 transition-colors duration-300 dark:bg-slate-950 sm:px-6">
       <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white px-6 py-9 shadow-xl shadow-slate-900/5 transition-colors duration-300 sm:px-8 sm:py-10 dark:border-slate-800 dark:bg-slate-900">
-
         {/* Header */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-500 to-emerald-700 text-white shadow-lg shadow-emerald-600/20">
@@ -63,7 +65,6 @@ export default function LoginPage() {
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
-
           {/* Email */}
           <div>
             <label
