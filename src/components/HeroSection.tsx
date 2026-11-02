@@ -38,11 +38,11 @@ const stats = [
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-emerald-100 via-emerald-50 to-slate-50 transition-colors duration-300 dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
+    <section className="relative overflow-hidden bg-linear-to-b from-emerald-100 via-emerald-50 to-slate-50 transition-colors duration-300 dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
 
       {/* Main Container */}
       <div className="container mx-auto px-4">
-        <div className="flex min-h-[650px] flex-col items-center justify-center py-20 text-center sm:py-24 lg:min-h-[745px]">
+        <div className="flex min-h-162.5 flex-col items-center justify-center py-20 text-center sm:py-24 lg:min-h-186.25">
 
           {/* Badge */}
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/70 px-4 py-2 text-sm font-semibold text-emerald-700 shadow-sm transition-colors duration-300 dark:border-emerald-800 dark:bg-slate-900/70 dark:text-emerald-400">
@@ -53,7 +53,7 @@ const HeroSection = () => {
           {/* Heading */}
           <h1 className="max-w-4xl text-4xl leading-tight font-extrabold tracking-tight text-slate-900 transition-colors duration-300 sm:text-5xl lg:text-6xl dark:text-white">
             Together We Can Make
-            <span className="block bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
+            <span className="block bg-linear-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-300">
               A Difference.
             </span>
           </h1>

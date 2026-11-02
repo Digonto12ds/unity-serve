@@ -66,7 +66,6 @@ export default function EventsGrid({ events }: EventsGridProps) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Only show events scheduled for today or a future date.
   const upcomingEvents = useMemo(() => {
     const today = getLocalDate();
 
@@ -77,7 +76,6 @@ export default function EventsGrid({ events }: EventsGridProps) {
     });
   }, [events]);
 
-  // Apply category and search filters.
   const filteredEvents = useMemo(() => {
     return upcomingEvents.filter((event) => {
       const matchesCategory =
