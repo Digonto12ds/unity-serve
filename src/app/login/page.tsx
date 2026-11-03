@@ -45,7 +45,6 @@ export default function LoginPage() {
     const data = await authClient.signIn.social({
       provider: "google",
     });
-    toast.success("Google login successful!");
     console.log("Google login data:", data);
   };
 

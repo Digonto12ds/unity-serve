@@ -41,7 +41,7 @@ const HeroSection = () => {
       <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-emerald-300/20 blur-[100px] dark:bg-emerald-500/10" />
       <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-teal-300/20 blur-[100px] dark:bg-teal-500/10" />
 
-      <div className="container relative mx-auto px-4">
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main Hero Layout */}
         <div className="grid min-h-162.5 items-center gap-14 py-20 lg:grid-cols-2 lg:gap-10 lg:py-24">
           {/* LEFT CONTENT */}
