@@ -33,7 +33,7 @@ const CommunityInAction = async () => {
 
   try {
     const res = await fetch(
-      "http://localhost:8000/upcoming_events",
+      `${process.env.NEXT_PUBLIC_API_URL}/upcoming_events`,
       {
         next: { revalidate: 60 },
       }

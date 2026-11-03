@@ -40,7 +40,7 @@ const JoinEventButton = ({
 
     try {
       const res = await fetch(
-        `http://localhost:8000/${isJoined ? "leave-event" : "join-event"}/${eventId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/${isJoined ? "leave-event" : "join-event"}/${eventId}`,
         {
           method: isJoined ? "DELETE" : "POST",
           headers: {

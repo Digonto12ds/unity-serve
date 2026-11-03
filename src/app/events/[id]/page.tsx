@@ -28,7 +28,7 @@ type EventData = {
 const DetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
-  const res = await fetch(`http://localhost:8000/upcoming_event/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upcoming_event/${id}`, {
     cache: "no-store",
   });
 

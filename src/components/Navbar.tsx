@@ -32,7 +32,10 @@ import ProfileAvatar from "./shared/ProfileAvatar";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+  if (typeof window === "undefined") return false;
+  return localStorage.getItem("theme") === "dark";
+});
 
   const router = useRouter();
 
@@ -41,11 +44,11 @@ export default function Navbar() {
   const user = session?.user;
 
   // Load saved theme without synchronously updating React state
-  useEffect(() => {
-    const isDark = localStorage.getItem("theme") === "dark";
+ useEffect(() => {
+  const isDark = localStorage.getItem("theme") === "dark";
 
-    document.documentElement.classList.toggle("dark", isDark);
-  }, []);
+  document.documentElement.classList.toggle("dark", isDark);
+}, []);
 
   // Toggle theme
   const toggleTheme = () => {
@@ -117,78 +120,89 @@ export default function Navbar() {
 
           {/* Logged In */}
           {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-2 rounded-full border border-slate-200 bg-white p-1.5 pr-3 transition hover:border-emerald-500 dark:border-slate-700 dark:bg-slate-900">
-                <ProfileAvatar name={user.name} image={user.image} size="sm" />
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 rounded-full border border-slate-200 bg-white p-1.5 pr-3 transition hover:border-emerald-500 dark:border-slate-700 dark:bg-slate-900">
+                  <ProfileAvatar name={user.name} image={user.image} size="sm" />
 
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                  My Account
-                </span>
-              </DropdownMenuTrigger>
+                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                    My Account
+                  </span>
+                </DropdownMenuTrigger>
 
-              <DropdownMenuContent
-                align="end"
-                className="w-64 rounded-xl border border-slate-200 bg-white p-2 shadow-xl dark:border-slate-800 dark:bg-slate-900"
-              >
-                <DropdownMenuGroup>
-                  <DropdownMenuLabel className="px-3 py-2">
-                    <p className="font-bold text-slate-900 dark:text-white">
-                      {user.name}
-                    </p>
-                    <p className="text-xs font-normal text-slate-500 dark:text-slate-400">
-                      {user.email}
-                    </p>
-                  </DropdownMenuLabel>
-                </DropdownMenuGroup>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuGroup>
-                  <DropdownMenuItem
-                    onClick={() => router.push("/profile")}
-                    className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
-                  >
-                    <RiUserLine size={19} />
-                    My Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => router.push("/create-event")}
-                    className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
-                  >
-                    <RiAddCircleLine size={19} />
-                    Create Event
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem
-                    onClick={() => router.push("/manage-events")}
-                    className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
-                  >
-                    <RiCalendarEventLine size={19} />
-                    Manage Events
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem
-                    onClick={() => router.push("/joined-events")}
-                    className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
-                  >
-                    <RiUserLine size={19} />
-                    Joined Events
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="flex cursor-pointer items-center gap-3 px-3 py-2.5 text-red-600 focus:text-red-600"
+                <DropdownMenuContent
+                  align="end"
+                  className="w-64 rounded-xl border border-slate-200 bg-white p-2 shadow-xl dark:border-slate-800 dark:bg-slate-900"
                 >
-                  <RiLogoutBoxRLine size={19} />
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel className="px-3 py-2">
+                      <p className="font-bold text-slate-900 dark:text-white">
+                        {user.name}
+                      </p>
+                      <p className="text-xs font-normal text-slate-500 dark:text-slate-400">
+                        {user.email}
+                      </p>
+                    </DropdownMenuLabel>
+                  </DropdownMenuGroup>
+
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem
+                      onClick={() => router.push("/profile")}
+                      className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
+                    >
+                      <RiUserLine size={19} />
+                      My Profile
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem
+                      onClick={() => router.push("/create-event")}
+                      className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
+                    >
+                      <RiAddCircleLine size={19} />
+                      Create Event
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem
+                      onClick={() => router.push("/manage-events")}
+                      className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
+                    >
+                      <RiCalendarEventLine size={19} />
+                      Manage Events
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem
+                      onClick={() => router.push("/joined-events")}
+                      className="flex cursor-pointer items-center gap-3 px-3 py-2.5"
+                    >
+                      <RiUserLine size={19} />
+                      Joined Events
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="flex cursor-pointer items-center gap-3 px-3 py-2.5 text-red-600 focus:text-red-600"
+                  >
+                    <RiLogoutBoxRLine size={19} />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm font-bold text-red-600 transition hover:border-red-300 hover:bg-red-100 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400 dark:hover:bg-red-950"
+              >
+                <RiLogoutBoxRLine size={17} />
+                Logout
+              </button>
+            </>
           ) : (
-            /* Logged Out */
+            
             <Link
               href="/login"
               className="flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/15 transition hover:bg-emerald-700"
@@ -257,6 +271,15 @@ export default function Navbar() {
                     </p>
                   </div>
                 </div>
+
+                <Link
+                  href="/profile"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 font-medium text-slate-700 dark:text-slate-300"
+                >
+                  <RiUserLine className="text-lg text-emerald-600" />
+                  My Profile
+                </Link>
 
                 {/* Create Event */}
                 <Link

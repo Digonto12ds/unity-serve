@@ -81,7 +81,7 @@ const ManageEventPage = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:8000/my-events/${encodeURIComponent(userEmail)}`,{
+          `${process.env.NEXT_PUBLIC_API_URL}/my-events/${encodeURIComponent(userEmail)}`,{
             headers: {
               authorization: `Bearer ${token}`,
             }
@@ -142,7 +142,7 @@ const ManageEventPage = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:8000/my-events/${editingEvent._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/my-events/${editingEvent._id}`,
         {
           method: "PUT",
           headers: {
@@ -196,7 +196,7 @@ const ManageEventPage = () => {
 
   try {
     const res = await fetch(
-      `http://localhost:8000/my-events/${id}?email=${encodeURIComponent(userEmail)}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/my-events/${id}?email=${encodeURIComponent(userEmail)}`,
       {
         method: "DELETE",
         headers: {
