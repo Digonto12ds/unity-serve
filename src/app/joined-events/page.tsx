@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -15,10 +14,7 @@ import {
   FiUsers,
 } from "react-icons/fi";
 
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 type JoinedEvent = {
@@ -47,15 +43,15 @@ const JoinedEventsPage = () => {
     let isActive = true;
 
     const fetchJoinedEvents = async () => {
-        const token = await getTokenFromClient();
+      const token = await getTokenFromClient();
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/joined-events/${encodeURIComponent(userEmail)}`,
           {
             headers: {
               authorization: `Bearer ${token}`,
-            }
-          }
+            },
+          },
         );
 
         const responseText = await res.text();
@@ -68,15 +64,18 @@ const JoinedEventsPage = () => {
         }
 
         if (!res.ok) {
-          throw new Error(data.message || "Failed to load joined events.");
+          throw new Error(
+            data.message ||
+              data.msg ||
+              `Request failed with status ${res.status}`,
+          );
         }
 
         if (isActive) {
           // Sort events by date, earliest first
           const sortedEvents = (data as JoinedEvent[]).sort(
             (a, b) =>
-              new Date(a.eventDate).getTime() -
-              new Date(b.eventDate).getTime()
+              new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime(),
           );
 
           setEvents(sortedEvents);
@@ -88,7 +87,7 @@ const JoinedEventsPage = () => {
           toast.error(
             error instanceof Error
               ? error.message
-              : "Could not load joined events."
+              : "Could not load joined events.",
           );
         }
       } finally {
@@ -157,7 +156,6 @@ const JoinedEventsPage = () => {
   return (
     <section className="min-h-screen bg-slate-50 py-10 sm:py-14 dark:bg-slate-950">
       <div className="container mx-auto px-4">
-
         {/*Page heading */}
         <div className="relative mb-10 overflow-hidden rounded-3xl bg-slate-900 px-6 py-9 sm:px-10 sm:py-12">
           <div className="absolute -right-12 -top-20 h-64 w-64 rounded-full bg-emerald-500/20 blur-3xl" />
